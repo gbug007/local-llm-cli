@@ -25,7 +25,7 @@ def get_ai_response(conversation: list) -> str:
     payload = {
         "model": "koboldcpp",
         "messages": conversation,
-        "max_tokens": 500,
+        "max_tokens": 1500,
         "temperature": 0.7,
     }
 
