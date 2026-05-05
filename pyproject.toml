@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "buggpt"
+version = "0.1.0"
+dependencies = [
+    "requests",
+    "rich"
+]
+
+[project.scripts]
+buggpt = "buggpt.main:main"

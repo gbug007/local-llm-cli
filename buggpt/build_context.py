@@ -70,8 +70,10 @@ def build_system_context(root: Path = None) -> str:
         Directory structure:
         {tree}
 
-        If you need the contents of a specific file to answer a question, respond with exactly:
-        READ_FILE: <relative/path/to/file>
+        If you need the contents of a specific file, respond with ONLY this exact format and nothing else:
+        READ_FILE: relative/path/to/file
 
-        The user's system will read it and provide the contents before you continue.
-        Do not guess file contents — request them if needed."""
+        If you need multiple files, request them one at a time. After receiving each file's 
+        contents, request the next one if needed before giving your final answer.
+
+        Do not include any other text, explanation, or punctuation in that response."""

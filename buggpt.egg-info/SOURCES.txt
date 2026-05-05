@@ -1,0 +1,10 @@
+README.md
+pyproject.toml
+buggpt/build_context.py
+buggpt/main.py
+buggpt.egg-info/PKG-INFO
+buggpt.egg-info/SOURCES.txt
+buggpt.egg-info/dependency_links.txt
+buggpt.egg-info/entry_points.txt
+buggpt.egg-info/requires.txt
+buggpt.egg-info/top_level.txt
