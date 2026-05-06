@@ -1,7 +1,4 @@
-import os
 from pathlib import Path
-
-"""Provides context about the current working directory for AI prompts."""
 
 
 def get_directory_context(root: Path = None) -> str:
@@ -18,7 +15,7 @@ def get_directory_context(root: Path = None) -> str:
     except PermissionError:
         listing = ["(permission denied)"]
     
-    return f"Current directory: {root}\nContents:\n" + "\n".join(f"  {item}" for item in listing)
+    return f"Current directory: {root}\nContents:\n" + " ".join(f"{item}" for item in listing)
 
 
 def get_directory_tree(root: Path, max_depth=3, indent=0) -> str:
@@ -63,17 +60,20 @@ def build_system_context(root: Path = None) -> str:
         root = Path.cwd()
     tree = get_directory_tree(root)
 
-    return f"""You are a coding assistant with access to the user's working directory.
+    return (
+        "You are a coding assistant with access to the user's working directory.\n\n"
+        f"Working directory: {root}\n\n"
+        f"Directory structure:\n{tree}\n\n"
+        "If you need the contents of a specific file, respond with ONLY this exact format and nothing else:\n"
+        "READ_FILE: relative/path/to/file\n\n"
+        "If you need multiple files, request them one at a time. After receiving each file's "
+        "contents, request the next one if needed before giving your final answer.\n\n"
+        "Do not include any other text, explanation, or punctuation in that response."
+    )
 
-        Working directory: {root}
-
-        Directory structure:
-        {tree}
-
-        If you need the contents of a specific file, respond with ONLY this exact format and nothing else:
-        READ_FILE: relative/path/to/file
-
-        If you need multiple files, request them one at a time. After receiving each file's 
-        contents, request the next one if needed before giving your final answer.
-
-        Do not include any other text, explanation, or punctuation in that response."""
+def build_conversation(target_path: Path) -> list:
+    """Initialize conversation with system context."""
+    return [
+        {"role": "user", "content": build_system_context(target_path)},
+        {"role": "assistant", "content": "Understood. I have your directory structure and will request specific files as needed."},
+    ]

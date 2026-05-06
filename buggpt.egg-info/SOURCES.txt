@@ -1,6 +1,7 @@
 README.md
 pyproject.toml
 buggpt/build_context.py
+buggpt/handlers.py
 buggpt/main.py
 buggpt.egg-info/PKG-INFO
 buggpt.egg-info/SOURCES.txt
